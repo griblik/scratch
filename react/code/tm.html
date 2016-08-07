@@ -1,0 +1,123 @@
+<html>
+  <head>
+    <title>My React App</title>
+    <script src="http://fb.me/react-0.13.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.13.0.js"></script>
+  </head>
+  <body>
+
+    <div id="wrapper"></div>
+
+    <script type="text/jsx">
+      /** @jsx React.DOM */
+      var HelloUser = React.createClass({
+        getInitialState: function(){
+          return {
+            username: '@tylermcginnis33',
+            friendsList: ['asdf','bsdf','csdf']
+          }
+        },
+        handleChange: function(e){
+          this.setState({
+            username: e.target.value
+          });
+        },
+        render: function() {
+          return (
+            <div>
+              <Message username={this.state.username} />
+              <ChangeForm username={this.state.username} handleChange={this.handleChange} />
+              <FriendsList names={this.state.friendsList} />
+            </div>
+          )
+        }
+      });
+
+      var Message = React.createClass({
+        render: function() {
+          return (
+            <div>Hello {this.props.username}</div>
+          )
+        }
+      });
+
+      var ChangeForm = React.createClass({
+        getInitialState: function() {
+          return {
+            username: this.props.username
+          }
+        },
+
+        handleChange: function(e) {
+          this.props.handleChange(e);
+        },
+
+        render: function() {
+          return (
+            <div>Change Name: <input type="text" value={this.props.username} onChange={this.handleChange} /></div>
+          )
+        }
+      });
+
+      var FriendsList = React.createClass({
+        getInitialState: function() {
+          return {
+            listItems: this.props.names.map(
+              function(friend) {
+                return (
+                  <li>{friend}</li>
+                )
+              }
+            )
+          }
+        },
+
+        newFriend: function(newFriendName) {
+          this.setState(
+            {
+              listItems: this.state.listItems.concat([newFriendName])
+            }
+          );
+          console.log(this.state.listItems)
+        },
+        
+        render: function() {
+          return (
+            <div>
+              <ul>{this.state.listItems}</ul>
+              <AddFriend newFriend={this.newFriend} />
+            </div>
+          )
+        }
+      });
+
+      var AddFriend = React.createClass({
+        getInitialState: function() {
+          return {
+            newFriend: ''
+          }
+        },
+
+        updateNewFriend: function(e) {
+          this.setState({newFriend: e.target.value});
+        },
+
+        onAddFriend: function() {
+          this.props.newFriend(this.state.newFriend);
+          this.setState({newFriend: ''});
+        },
+
+        render: function() {
+          return (
+            <div>
+              <input type="text" onchange={this.updateNewFriend} />
+              <button onClick={this.onAddFriend} />
+            </div>
+          )
+        }
+      });
+
+      React.render(<HelloUser />, document.getElementById('wrapper'));
+    </script>
+  </body>
+</html>
