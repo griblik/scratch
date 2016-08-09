@@ -4,7 +4,7 @@ Test_PCA = True
 
 
 def plotDecisionBoundary(model, X, y):
-  print "Plotting..."
+  print("Plotting...")
   import matplotlib.pyplot as plt
   import matplotlib
   matplotlib.style.use('ggplot') # Look Pretty
@@ -91,7 +91,7 @@ def plotDecisionBoundary(model, X, y):
 # PCA and Isomap are your new best friends
 model = None
 if Test_PCA:
-  print "Computing 2D Principle Components"
+  print("Computing 2D Principle Components")
   #
   # TODO: Implement PCA here. save your model into the variable 'model'.
   # You should reduce down to two dimensions.
@@ -100,7 +100,7 @@ if Test_PCA:
   
 
 else:
-  print "Computing 2D Isomap Manifold"
+  print("Computing 2D Isomap Manifold")
   #
   # TODO: Implement Isomap here. save your model into the variable 'model'
   # Experiment with K values from 5-10.
