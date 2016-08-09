@@ -101,7 +101,7 @@ def Plot2DBoundary(DTrain, LTrain, DTest, LTest):
 #
 # .. your code here ..
 
-mat = scipy.io.loadmat('../Isomap/Datasets/face_data.mat')
+mat = scipy.io.loadmat('../Module4Isomap/Datasets/face_data.mat')
 df = pd.DataFrame(mat['images']).T
 num_images, num_pixels = df.shape
 num_pixels = int(math.sqrt(num_pixels))
@@ -120,9 +120,12 @@ for i in range(num_images):
 #
 # .. your code here ..
 
-
+face_labels = pd.read_csv('Datasets/face_labels.csv')
+face_labels = face_labels.loc[[:][0]
+print(face_labels.head())
 
 if Test_PCA:
+    pass
   # INFO: PCA is used *before* KNeighbors to simplify your high dimensionality
   # image samples down to just 2 principal components! A lot of information
   # (variance) is lost during the process, as I'm sure you can imagine. But
@@ -140,6 +143,7 @@ if Test_PCA:
   # .. your code here ..
 
 else:
+    pass
   # INFO: Isomap is used *before* KNeighbors to simplify your high dimensionality
   # image samples down to just 2 components! A lot of information has been is
   # lost during the process, as I'm sure you can imagine. But if you have
