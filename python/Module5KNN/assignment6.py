@@ -2,6 +2,10 @@ import random, math
 import pandas as pd
 import numpy as np
 import scipy.io
+from sklearn.decomposition import PCA
+from sklearn.manifold import Isomap
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.cross_validation import train_test_split
 
 from matplotlib.colors import ListedColormap
 import matplotlib.pyplot as plt
@@ -9,7 +13,7 @@ import matplotlib
 
 # If you'd like to try this lab with PCA instead of Isomap,
 # as the dimensionality reduction technique:
-Test_PCA = False
+Test_PCA = True
 
 matplotlib.style.use('ggplot') # Look Pretty
 
@@ -120,12 +124,12 @@ for i in range(num_images):
 #
 # .. your code here ..
 
-face_labels = pd.read_csv('Datasets/face_labels.csv')
-face_labels = face_labels.loc[[:][0]
-print(face_labels.head())
+face_labels = pd.read_csv('Datasets/face_labels.csv', header=None)
+face_labels = face_labels.iloc[:,0]
+
 
 if Test_PCA:
-    pass
+
   # INFO: PCA is used *before* KNeighbors to simplify your high dimensionality
   # image samples down to just 2 principal components! A lot of information
   # (variance) is lost during the process, as I'm sure you can imagine. But
@@ -141,9 +145,13 @@ if Test_PCA:
   # variable (e.g. "X" instead of df)
   #
   # .. your code here ..
+    pca = PCA(n_components=2)
+    pca.fit(df)
+    X = pca.transform(df)
+    print("============\nPCA fit and transformed\n===========")
 
 else:
-    pass
+
   # INFO: Isomap is used *before* KNeighbors to simplify your high dimensionality
   # image samples down to just 2 components! A lot of information has been is
   # lost during the process, as I'm sure you can imagine. But if you have
@@ -161,7 +169,9 @@ else:
   # variable (e.g. "X" instead of df)
   #
   # .. your code here ..
-
+    im = Isomap(n_neighbors=2)
+    im.fit(df)
+    X = im.transform(df)
 
 
 #
@@ -176,7 +186,7 @@ else:
 # .. your code here ..
 
 
-
+data_train, data_test, label_train, label_test = train_test_split(X, face_labels, test_size=0.5, random_state=7)
 
 #
 # TODO: Implement KNeighborsClassifier here. You can use any K value from 1
@@ -186,6 +196,10 @@ else:
 # labels that those 2d representations should be.
 #
 # .. your code here ..
+
+model = KNeighborsClassifier(n_neighbors=4)
+model.fit(data_train, label_train)
+
 
 # NOTE: K-NEIGHBORS DOES NOT CARE WHAT THE ANSWERS SHOULD BE! In fact, it
 # just tosses that information away. All KNeighbors cares about storing is
@@ -200,6 +214,7 @@ else:
 #
 # .. your code here ..
 
+print("========\n%(score)s\n========" % {'score': model.score(data_test, label_test)})
 
 
 # Chart the combined decision boundary, the training data as 2D plots, and
