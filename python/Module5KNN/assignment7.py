@@ -1,3 +1,16 @@
+import matplotlib.pyplot as plt
+import matplotlib
+import numpy as np
+import pandas as pd
+import sklearn.preprocessing as pp
+from matplotlib.colors import ListedColormap
+from sklearn.decomposition import PCA
+from sklearn.manifold import Isomap
+from sklearn.cross_validation import train_test_split
+
+
+matplotlib.style.use('ggplot') # Look Pretty
+
 # If you'd like to try this lab with PCA instead of Isomap,
 # as the dimensionality reduction technique:
 Test_PCA = True
@@ -5,9 +18,6 @@ Test_PCA = True
 
 def plotDecisionBoundary(model, X, y):
   print("Plotting...")
-  import matplotlib.pyplot as plt
-  import matplotlib
-  matplotlib.style.use('ggplot') # Look Pretty
 
   fig = plt.figure()
   ax = fig.add_subplot(111)
@@ -15,7 +25,7 @@ def plotDecisionBoundary(model, X, y):
   padding = 0.1
   resolution = 0.1
 
-  from matplotlib.colors import ListedColormap
+  
   cmap_light = ListedColormap(['#AAFFAA', '#AAAAFF'])
   cmap_bold  = ListedColormap(['#00AA00', '#0000AA'])
   
@@ -31,7 +41,7 @@ def plotDecisionBoundary(model, X, y):
 
   # Create a 2D Grid Matrix. The values stored in the matrix
   # are the predictions of the class at said location
-  import numpy as np
+
   xx, yy = np.meshgrid(np.arange(x_min, x_max, resolution),
                        np.arange(y_min, y_max, resolution))
 
@@ -61,7 +71,7 @@ def plotDecisionBoundary(model, X, y):
 # Be sure to verify the rows line up by looking at the file in a text editor.
 #
 # .. your code here ..
-
+df = pd.read_csv('Datasets/breast-cancer-wisconsin.data', na_values="?", names=['sample', 'thickness', 'size', 'shape', 'adhesion', 'epithelial', 'nuclei', 'chromatin', 'nucleoli', 'mitoses', 'status'])
 
 # 
 # TODO: Copy out the status column into a slice, then drop it from the main
@@ -70,12 +80,17 @@ def plotDecisionBoundary(model, X, y):
 #
 # .. your code here ..
 
+status = df['status']
+df = df.drop('status', axis=1)
+
 
 #
 # TODO: With the labels safely extracted from the dataset, replace any nan values
 # with the mean feature / column value
 #
 # .. your code here ..
+
+df = df.fillna(df.mean())
 
 
 #
@@ -86,6 +101,11 @@ def plotDecisionBoundary(model, X, y):
 #
 # .. your code here ..
 
+
+scaler = pp.StandardScaler()
+scaler.fit(df)
+df_scaled = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+print(df_scaled.describe())
 
 #
 # PCA and Isomap are your new best friends
@@ -98,6 +118,8 @@ if Test_PCA:
   #
   # .. your code here ..
   
+  model = PCA(n_components=2)
+  
 
 else:
   print("Computing 2D Isomap Manifold")
@@ -107,8 +129,9 @@ else:
   # You should reduce down to two dimensions.
   #
   # .. your code here ..
-
-
+  
+  model = Isomap(n_neighbors=5)
+  
 
 #
 # TODO: Train your model against X and transform it. You can save the results
@@ -116,7 +139,8 @@ else:
 #
 # .. your code here ..
 
-
+model.fit(df)
+X = model.transform(df)
 
 #
 # TODO: Do train_test_split. Use the same variable names as on the EdX platform in
@@ -125,7 +149,7 @@ else:
 #
 # .. your code here ..
 
-
+data_train, label_train, data_test, label_test = train_test_split(df, status, test_size=0.33, random_state=7)
 
 
 # 
