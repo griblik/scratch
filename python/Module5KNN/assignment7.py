@@ -7,6 +7,7 @@ from matplotlib.colors import ListedColormap
 from sklearn.decomposition import PCA
 from sklearn.manifold import Isomap
 from sklearn.cross_validation import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
 
 
 matplotlib.style.use('ggplot') # Look Pretty
@@ -39,11 +40,14 @@ def plotDecisionBoundary(model, X, y):
   x_max += x_range * padding
   y_max += y_range * padding
 
+
   # Create a 2D Grid Matrix. The values stored in the matrix
   # are the predictions of the class at said location
 
-  xx, yy = np.meshgrid(np.arange(x_min, x_max, resolution),
-                       np.arange(y_min, y_max, resolution))
+  a = np.arange(x_min, x_max, resolution)
+  b = np.arange(y_min, y_max, resolution)
+  xx, yy = np.meshgrid(a,b)
+
 
   # What class does the classifier say?
   Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
@@ -139,8 +143,8 @@ else:
 #
 # .. your code here ..
 
-model.fit(df)
-X = model.transform(df)
+model.fit(df_scaled)
+X = model.transform(df_scaled)
 
 #
 # TODO: Do train_test_split. Use the same variable names as on the EdX platform in
@@ -149,7 +153,7 @@ X = model.transform(df)
 #
 # .. your code here ..
 
-data_train, label_train, data_test, label_test = train_test_split(df, status, test_size=0.33, random_state=7)
+data_train, data_test, label_train, label_test = train_test_split(X, status, test_size=0.33, random_state=7)
 
 
 # 
@@ -162,6 +166,8 @@ data_train, label_train, data_test, label_test = train_test_split(df, status, te
 #
 # .. your code here ..
 
+model = KNeighborsClassifier(n_neighbors=12, weights='distance')
+model.fit(data_train, label_train)
 #
 # INFO: Be sure to always keep the domain of the problem in mind! It's
 # WAY more important to errantly classify a benign tumor as malignant,
@@ -178,6 +184,12 @@ data_train, label_train, data_test, label_test = train_test_split(df, status, te
 # TODO: Calculate + Print the accuracy of the testing set
 #
 # .. your code here ..
+
+print('==========\nScore\n')
+print(model.score(data_test, label_test))
+
+print('==========')
+
 
 
 plotDecisionBoundary(model, data_test, label_test)
