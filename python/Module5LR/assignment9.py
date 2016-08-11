@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from sklearn.linear_model import LinearRegression
+from sklearn.cross_validation import train_test_split
 
 matplotlib.style.use('ggplot') # Look Pretty
 
@@ -19,8 +21,8 @@ def drawLine(model, X_test, y_test, title, R2):
 
   title += " R2: " + str(R2)
   ax.set_title(title)
-  print title
-  print "Intercept(s): ", model.intercept_
+  print(title)
+  print("Intercept(s): ", model.intercept_)
 
   plt.show()
 
@@ -58,8 +60,8 @@ def drawPlane(model, X_test, y_test, title, R2):
   
   title += " R2: " + str(R2)
   ax.set_title(title)
-  print title
-  print "Intercept(s): ", model.intercept_
+  print(title)
+  print("Intercept(s): ", model.intercept_)
   
   plt.show()
   
@@ -84,6 +86,9 @@ def drawPlane(model, X_test, y_test, title, R2):
 # called X:
 #
 # .. your code here ..
+X = pd.read_csv('Datasets/College.csv', index_col=0)
+print(X.head())
+print(X.dtypes)
 
 
 #
@@ -104,7 +109,7 @@ X.Private = X.Private.map({'Yes':1, 'No':0})
 #
 # .. your code here ..
 
-
+model = LinearRegression()
 
 
 #
@@ -126,17 +131,28 @@ X.Private = X.Private.map({'Yes':1, 'No':0})
 #
 # .. your code here ..
 
+def doThing(model, col1 = X[['Room.Board']], col2 = X['Accept']):
+    a = col1
+    b = col2
+    
+    X_train, X_test, y_train, y_test = train_test_split(a, b, test_size=0.3, random_state=7)
+    
+    model.fit(X_test, y_test)
+    score = model.score(X_test, y_test)
+        
+    drawLine(model, X_test, y_test, "%(col2)s(%(col1)s)" % {'col1':col1.columns.values,'col2':col2.name}, score)
+
+
 #
 # TODO: Fit and score your model appropriately. Store the score in the
 # score variable.
 #
 # .. your code here ..
 
+doThing(model, X[['Room.Board']], X['Accept'])
+
 # INFO: We'll take it from here, buddy:
-drawLine(model, X_test, y_test, "Accept(Room&Board)", score)
-
-
-
+#drawLine(model, X_test, y_test, "Accept(Room&Board)", score)
 
 # 
 # TODO: Duplicate the process above; this time, model the number of
@@ -144,7 +160,9 @@ drawLine(model, X_test, y_test, "Accept(Room&Board)", score)
 # students
 #
 # .. your code here ..
-drawLine(model, X_test, y_test, "Accept(Enroll)", score)
+
+doThing(model, X[['Enroll']], X['Accept'])
+#drawLine(model, X_test, y_test, "Accept(Enroll)", score)
 
 
 
@@ -154,7 +172,8 @@ drawLine(model, X_test, y_test, "Accept(Enroll)", score)
 # of accepted students
 #
 # .. your code here ..
-drawLine(model, X_test, y_test, "Accept(F.Undergrad)", score)
+doThing(model, X[['F.Undergrad']], X['Accept'])
+#drawLine(model, X_test, y_test, "Accept(F.Undergrad)", score)
 
 
 #
@@ -170,6 +189,17 @@ drawLine(model, X_test, y_test, "Accept(F.Undergrad)", score)
 # inputs. Your training labels will remain a single slice.
 #
 # .. your code here ..
+
+
+a = X[['Room.Board','Enroll']]
+b = X.Accept
+
+X_train, X_test, y_train, y_test = train_test_split(a, b, test_size=0.3, random_state=7)
+
+model.fit(X_test, y_test)
+score = model.score(X_test, y_test)
+
+
 drawPlane(model, X_test, y_test, "Accept(Room&Board,Enroll)", score)
 
 
