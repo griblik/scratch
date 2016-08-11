@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 
 matplotlib.style.use('ggplot') # Look Pretty
 
@@ -10,14 +11,15 @@ def drawLine(model, X_test, y_test, title):
   # This convenience method will take care of plotting your
   # test observations, comparing them to the regression line,
   # and displaying the R2 coefficient
-  fig = plt.figure()
+  fig = plt.figure()    
   ax = fig.add_subplot(111)
+  
   ax.scatter(X_test, y_test, c='g', marker='o')
   ax.plot(X_test, model.predict(X_test), color='orange', linewidth=1, alpha=0.7)
 
-  print "Est 2014 " + title + " Life Expectancy: ", model.predict([[2014]])[0]
-  print "Est 2030 " + title + " Life Expectancy: ", model.predict([[2030]])[0]
-  print "Est 2045 " + title + " Life Expectancy: ", model.predict([[2045]])[0]
+  print("Est 2014 " + title + " Life Expectancy: ", model.predict([[2014]])[0])
+  print("Est 2030 " + title + " Life Expectancy: ", model.predict([[2030]])[0])
+  print("Est 2045 " + title + " Life Expectancy: ", model.predict([[2045]])[0])
 
   score = model.score(X_test, y_test)
   title += " R2: " + str(score)
@@ -26,6 +28,21 @@ def drawLine(model, X_test, y_test, title):
 
   plt.show()
 
+def doThing(feature='WhiteMale'):
+    '''Extract the training years and life expectencies for the feature, draw the line and print the actual value'''
+    
+    print('Doing thing for ', feature)
+    
+    model = LinearRegression()
+    
+    X_train = X.loc[X['Year'] < 1986]
+    y_train = X_train[[feature]]
+    X_train = X_train[['Year']]
+    
+    model.fit(X_train, y_train)
+    drawLine(model, X_train, y_train, feature)
+    
+    print("2014 actual: ", X.loc[X['Year'] == 2014][feature])
 
 #
 # TODO: Load up the data here into a variable called 'X'.
@@ -35,6 +52,9 @@ def drawLine(model, X_test, y_test, title):
 #
 # .. your code here ..
 
+X = pd.read_csv('Datasets/life_expectancy.csv', delimiter='\t')
+print(X.head())
+print(X.describe())
 
 #
 # TODO: Create your linear regression model here and store it in a
@@ -43,7 +63,7 @@ def drawLine(model, X_test, y_test, title):
 #
 # .. your code here ..
 
-
+doThing('WhiteMale')
 
 #
 # TODO: Slice out your data manually (e.g. don't use train_test_split,
@@ -56,7 +76,6 @@ def drawLine(model, X_test, y_test, title):
 # .. your code here ..
 
 
-
 #
 # TODO: Train your model then pass it into drawLine with your training
 # set and labels. You can title it "WhiteMale". drawLine will output
@@ -67,14 +86,11 @@ def drawLine(model, X_test, y_test, title):
 #
 # .. your code here ..
 
-
 #
 # TODO: Print the actual 2014 WhiteMale life expectancy from your
 # loaded dataset
 #
 # .. your code here ..
-
-
 
 # 
 # TODO: Repeat the process, but instead of for WhiteMale, this time
@@ -84,7 +100,7 @@ def drawLine(model, X_test, y_test, title):
 #
 # .. your code here ..
 
-
+doThing('BlackFemale')
 
 #
 # TODO: Lastly, print out a correlation matrix for your entire
@@ -93,6 +109,9 @@ def drawLine(model, X_test, y_test, title):
 # the course
 #
 # .. your code here ..
+
+print(X.corr())
+plt.matshow(X.corr())
 
 plt.show()
 
