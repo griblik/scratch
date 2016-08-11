@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+from sklearn.linear_model import LinearRegression
+from os import listdir
 
 import scipy.io.wavfile as wavfile
 
@@ -48,6 +50,14 @@ Provided_Portion = 0.25
 #
 # .. your code here ..
 
+zero = []
+
+audiodir = 'Datasets/audio/'
+for filename in listdir(audiodir):
+    sample_rate, audio_data = wavfile.read('%(ad)s/%(fn)s' % {'ad':audiodir, 'fn':filename})
+    zero.append(audio_data)
+
+print('Read ', len(zero), ' wavs')
 
 
 # 
@@ -66,6 +76,8 @@ Provided_Portion = 0.25
 #
 # .. your code here ..
 
+zero = pd.DataFrame(zero, dtype=np.int16)
+zero = zero.dropna(axis=1)
 
 #
 # TODO: It's important to know how (many audio_samples samples) long the
@@ -75,7 +87,7 @@ Provided_Portion = 0.25
 #
 # .. your code here ..
 
-
+n_audio_samples = len(zero.iloc[0])
 
 #
 # TODO: Create your linear regression model here and store it in a
@@ -84,7 +96,7 @@ Provided_Portion = 0.25
 #
 # .. your code here ..
 
-
+model = LinearRegression()
 
 #
 # INFO: There are 50 takes of each clip. You want to pull out just one
@@ -108,7 +120,7 @@ train = np.delete(zero, [random_idx], axis=0)
 # sample (audio file, e.g. observation).
 #
 # .. your code here ..
-
+print(train.shape())
 
 
 #
@@ -205,7 +217,7 @@ y_test_prediction = y_test_prediction.astype(dtype=np.int16)
 # by passing in your test data and test label (y_test).
 #
 # .. your code here ..
-print "Extrapolation R^2 Score: ", score
+print("Extrapolation R^2 Score: ", score)
 
 
 #
