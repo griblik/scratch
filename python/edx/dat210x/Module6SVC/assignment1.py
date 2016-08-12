@@ -5,6 +5,9 @@ import pandas as pd
 import numpy as np 
 import time
 
+from sklearn.cross_validation import train_test_split
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
 
 # 
 # INFO: Your Parameters.
@@ -87,29 +90,33 @@ def drawPlots(model, wintitle='Figure 1'):
 
       cnt += 1
 
-  print "Max 2D Score: ", max_2d_score
+  print("Max 2D Score: ", max_2d_score)
   fig.set_tight_layout(True)
 
 
 def benchmark(model, wintitle='Figure 1'):
-  print '\n\n' + wintitle + ' Results'
+  print('\n\n' + wintitle + ' Results')
   s = time.time()
   for i in range(iterations):
+
     #
     # TODO: train the classifier on the training data / labels:
     #
     # .. your code here ..
-  print "{0} Iterations Training Time: ".format(iterations), time.time() - s
+
+    model.fit(X_train, y_train)
+  print("{0} Iterations Training Time: ".format(iterations), time.time() - s)
 
 
   s = time.time()
   for i in range(iterations):
+      pass
     #
     # TODO: score the classifier on the testing data / labels:
     #
     # .. your code here ..
-  print "{0} Iterations Scoring Time: ".format(iterations), time.time() - s
-  print "High-Dimensionality Score: ", round((score*100), 3)
+  print("{0} Iterations Scoring Time: ".format(iterations), time.time() - s)
+  print("High-Dimensionality Score: ", round((score*100), 3))
 
 
 
@@ -120,6 +127,7 @@ def benchmark(model, wintitle='Figure 1'):
 #
 # .. your code here ..
 
+X = pd.read_csv('Datasets/wheat.data', index_col=0)
 
 # INFO: An easy way to show which rows have nans in them
 #print X[pd.isnull(X).any(axis=1)]
@@ -130,7 +138,7 @@ def benchmark(model, wintitle='Figure 1'):
 #
 # .. your code here ..
 
-
+X = X.dropna()
 
 # 
 # INFO: # In the future, you might try setting the nan values to the
@@ -147,7 +155,9 @@ def benchmark(model, wintitle='Figure 1'):
 #
 # .. your code here ..
 
-
+y = X[['wheat_type']]
+y.wheat_type = y.wheat_type.map({'canadian':0,'kama':1, 'rosa':2})
+X = X.drop('wheat_type', axis=1)
 
 # 
 # TODO: Split your data into test / train sets
@@ -156,14 +166,15 @@ def benchmark(model, wintitle='Figure 1'):
 #
 # .. your code here ..
 
-
-
+X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.3, random_state=7)
+print(y_train.values.tolist().ravel())
 #
 # TODO: Create an SVC classifier named svc
 # Use a linear kernel, and set the C value to C
 #
 # .. your code here ..
 
+svc = SVC(C=C, kernel=kernel)
 
 #
 # TODO: Create an KNeighbors classifier named knn
@@ -171,15 +182,15 @@ def benchmark(model, wintitle='Figure 1'):
 #
 # .. your code here ..
 
+knn = KNeighborsClassifier(n_neighbors=5)
 
 
 
+#benchmark(knn, 'KNeighbors')
+#drawPlots(knn, 'KNeighbors')
 
-benchmark(knn, 'KNeighbors')
-drawPlots(knn, 'KNeighbors')
-
-benchmark(svc, 'SVC')
-drawPlots(svc, 'SVC')
+#benchmark(svc, 'SVC')
+#drawPlots(svc, 'SVC')
 
 plt.show()
 
