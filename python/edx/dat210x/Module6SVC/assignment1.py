@@ -110,11 +110,11 @@ def benchmark(model, wintitle='Figure 1'):
 
   s = time.time()
   for i in range(iterations):
-      pass
     #
     # TODO: score the classifier on the testing data / labels:
     #
     # .. your code here ..
+    score = model.score(X_test, y_test)
   print("{0} Iterations Scoring Time: ".format(iterations), time.time() - s)
   print("High-Dimensionality Score: ", round((score*100), 3))
 
@@ -130,7 +130,7 @@ def benchmark(model, wintitle='Figure 1'):
 X = pd.read_csv('Datasets/wheat.data', index_col=0)
 
 # INFO: An easy way to show which rows have nans in them
-#print X[pd.isnull(X).any(axis=1)]
+print(X[pd.isnull(X).any(axis=1)])
 
 
 # 
@@ -138,7 +138,7 @@ X = pd.read_csv('Datasets/wheat.data', index_col=0)
 #
 # .. your code here ..
 
-X = X.dropna()
+X = X.dropna(axis=0)
 
 # 
 # INFO: # In the future, you might try setting the nan values to the
@@ -157,6 +157,7 @@ X = X.dropna()
 
 y = X[['wheat_type']]
 y.wheat_type = y.wheat_type.map({'canadian':0,'kama':1, 'rosa':2})
+y = y['wheat_type']
 X = X.drop('wheat_type', axis=1)
 
 # 
@@ -167,12 +168,14 @@ X = X.drop('wheat_type', axis=1)
 # .. your code here ..
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.3, random_state=7)
-print(y_train.values.tolist().ravel())
+# print(y_train.values)
 #
 # TODO: Create an SVC classifier named svc
 # Use a linear kernel, and set the C value to C
 #
 # .. your code here ..
+
+# print(y_train)
 
 svc = SVC(C=C, kernel=kernel)
 
@@ -185,12 +188,11 @@ svc = SVC(C=C, kernel=kernel)
 knn = KNeighborsClassifier(n_neighbors=5)
 
 
+benchmark(knn, 'KNeighbors')
+drawPlots(knn, 'KNeighbors')
 
-#benchmark(knn, 'KNeighbors')
-#drawPlots(knn, 'KNeighbors')
-
-#benchmark(svc, 'SVC')
-#drawPlots(svc, 'SVC')
+benchmark(svc, 'SVC')
+drawPlots(svc, 'SVC')
 
 plt.show()
 
