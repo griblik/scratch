@@ -82,9 +82,11 @@ def drawPlots(model, wintitle='Figure 1'):
       Z = Z.reshape(xx.shape)
       plt.contourf(xx, yy, Z, cmap=my_cmap, alpha=0.8)
       plt.scatter(X_train_bag.ix[:, 0], X_train_bag.ix[:, 1], c=colors, alpha=0.5)
+      
 
 
       score = round(model.score(X_test_bag, y_test) * 100, 3)
+      #print('==== > ',score)
       plt.text(0.5, 0, "Score: {0}".format(score), transform = ax.transAxes, horizontalalignment='center', fontsize=8)
       max_2d_score = score if score > max_2d_score else max_2d_score
 
@@ -115,6 +117,7 @@ def benchmark(model, wintitle='Figure 1'):
     #
     # .. your code here ..
     score = model.score(X_test, y_test)
+
   print("{0} Iterations Scoring Time: ".format(iterations), time.time() - s)
   print("High-Dimensionality Score: ", round((score*100), 3))
 
@@ -130,7 +133,7 @@ def benchmark(model, wintitle='Figure 1'):
 X = pd.read_csv('Datasets/wheat.data', index_col=0)
 
 # INFO: An easy way to show which rows have nans in them
-print(X[pd.isnull(X).any(axis=1)])
+# print(X[pd.isnull(X).any(axis=1)])
 
 
 # 
@@ -155,9 +158,8 @@ X = X.dropna(axis=0)
 #
 # .. your code here ..
 
-y = X[['wheat_type']]
-y.wheat_type = y.wheat_type.map({'canadian':0,'kama':1, 'rosa':2})
-y = y['wheat_type']
+y = X['wheat_type']
+y = y.map({'canadian':0,'kama':1, 'rosa':2})
 X = X.drop('wheat_type', axis=1)
 
 # 
