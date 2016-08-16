@@ -1,4 +1,6 @@
 import pandas as pd
+import math
+from sklearn.svm import SVC
 
 # The Dataset comes from:
 # https://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits
@@ -25,13 +27,15 @@ def load(path_test, path_train):
 
   #
   # Special:
+  X_train = X_train.iloc[:int(math.ceil(len(X_train)*.04))]
+  y_train = y_train[:int(math.ceil(len(y_train)*.04))]
 
   return X_train, X_test, y_train, y_test
 
 
 def peekData():
   # The 'targets' or labels are stored in y. The 'samples' or data is stored in X
-  print "Peeking your data..."
+  print("Peeking your data...")
   fig = plt.figure()
 
   cnt = 0
@@ -81,7 +85,7 @@ def drawPredictions():
 
 #
 # TODO: Pass in the file paths to the .tes and the .tra files
-X_train, X_test, y_train, y_test = load('', '')
+X_train, X_test, y_train, y_test = load('Datasets/optdigits.tes', 'Datasets/optdigits.tra')
 
 import matplotlib.pyplot as plt
 from sklearn import svm
@@ -97,18 +101,20 @@ peekData()
 # TODO: Create an SVC classifier. Leave C=1, but set gamma to 0.001
 # and set the kernel to linear. Then train the model on the testing
 # data / labels:
-print "Training SVC Classifier..."
+print("Training SVC Classifier...")
 #
 # .. your code here ..
 
-
+model = SVC(C=1, gamma=0.001, kernel='linear')
+model.fit(X_train, y_train)
 
 
 # TODO: Calculate the score of your SVC against the testing data
-print "Scoring SVC Classifier..."
+print("Scoring SVC Classifier...")
+score = model.score(X_test,y_test)
 #
 # .. your code here ..
-print "Score:\n", score
+print("Score:\n", score)
 
 
 # Visual Confirmation of accuracy
@@ -119,7 +125,8 @@ drawPredictions()
 # TODO: Print out the TRUE value of the 1000th digit in the test set
 #
 # .. your code here ..
-print "1000th test label: ", true_1000th_test_value)
+true_1000th_test_value = y_test[999]
+print("1000th test label: ", true_1000th_test_value)
 
 
 #
@@ -129,7 +136,8 @@ print "1000th test label: ", true_1000th_test_value)
 # notes from the previous module's labs.
 #
 # .. your code here ..
-print "1000th test prediction: ", guess_1000th_test_value
+guess_1000th_test_value = model.predict(X_test.iloc[999])
+print("1000th test prediction: ", guess_1000th_test_value)
 
 
 #
@@ -138,6 +146,8 @@ print "1000th test prediction: ", guess_1000th_test_value
 #
 # .. your code here ..
 
+# print(X_test.ix[999].reshape(8,8))
+plt.imshow(X_test.ix[999].reshape(8,8), cmap=plt.cm.gray_r, interpolation='nearest')
 
 #
 # TODO: Were you able to beat the USPS advertised accuracy score
