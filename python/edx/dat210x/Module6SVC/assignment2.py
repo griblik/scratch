@@ -31,7 +31,7 @@ def load(path_test, path_train):
 
 def peekData():
   # The 'targets' or labels are stored in y. The 'samples' or data is stored in X
-  print "Peeking your data..."
+  print("Peeking your data...")
   fig = plt.figure()
 
   cnt = 0
@@ -81,7 +81,7 @@ def drawPredictions():
 
 #
 # TODO: Pass in the file paths to the .tes and the .tra files
-X_train, X_test, y_train, y_test = load('', '')
+X_train, X_test, y_train, y_test = load('Datasets/optdigits.tes', 'Datasets/optdigits.tra')
 
 import matplotlib.pyplot as plt
 from sklearn import svm
@@ -97,7 +97,7 @@ peekData()
 # TODO: Create an SVC classifier. Leave C=1, but set gamma to 0.001
 # and set the kernel to linear. Then train the model on the testing
 # data / labels:
-print "Training SVC Classifier..."
+print("Training SVC Classifier...")
 #
 # .. your code here ..
 
@@ -105,10 +105,10 @@ print "Training SVC Classifier..."
 
 
 # TODO: Calculate the score of your SVC against the testing data
-print "Scoring SVC Classifier..."
+print("Scoring SVC Classifier...")
 #
 # .. your code here ..
-print "Score:\n", score
+print("Score:\n", score)
 
 
 # Visual Confirmation of accuracy
@@ -119,7 +119,7 @@ drawPredictions()
 # TODO: Print out the TRUE value of the 1000th digit in the test set
 #
 # .. your code here ..
-print "1000th test label: ", true_1000th_test_value)
+print("1000th test label: ", true_1000th_test_value)
 
 
 #
@@ -129,7 +129,7 @@ print "1000th test label: ", true_1000th_test_value)
 # notes from the previous module's labs.
 #
 # .. your code here ..
-print "1000th test prediction: ", guess_1000th_test_value
+print("1000th test prediction: ", guess_1000th_test_value)
 
 
 #
