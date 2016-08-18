@@ -74,24 +74,31 @@ def read_hours():
             if datematch.findall(wd):
                 m, d, y = datematch.findall(wd)
                 weeks.append(Week(wcdate=date(int(y),int(m),int(d))))
-        print(type(weeks))
+        print(weeks[102].wcdate)
         
         # Sheet lists projects and roles. Read the role hours into each project
         currentproject = ''
         for row in hoursreader:
             
+            # next project in the sheet
             if row[0] in projects.keys():
                 currentproject=projects[row[0]]
+                continue
+            
+            # If it's not a project, and it's not a role, we don't want it
+            if row[0] not in roles:
                 continue
             
             # Determine the role
             role = row[0].strip()
 #            print(len(row),  ' - ', len(weeks))
             # Add the hours for that role to each week
-            for i in range(1, len(row)):
-                print(row[i], ' ====')
-                weeks[i].hours[role] = round(float(row[i]), 2)
+            for i in range(0, len(weeks)):
+                print(row[0], ' ==== ', currentproject.name)
+                weeks[i].hours[role] = round(float(row[i+1]), 2)
 
-                    
+        print(weeks[4].hours)
    
 read_hours()
+
+
