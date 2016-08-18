@@ -1,0 +1,9 @@
+Project,Active,Client,Project stage,Project Owner / Client Liaison,Budget (money),Total Income,Total pro-formaed,Budget,Planned,Worked,Billed,Approved,Scheduled,Allocations Application External ID,Project location,Project Type Hierarchy - Reporting,Line of Business and Geography Merged Hierarchy - Access Rights,Project Geography Hierarchy - Reporting,Start Date,Internal id,Internal id - customer_id
+1 - Master APP MVP,Yes,Allianz Deutschland AG,Funded,"Clutton, Robbie",524000.00 EUR,"491,625.00 EUR","481,000.00 EUR",2096,0,1968.5,1966.5,1968.5,37.2,306155,,Client Facing,Global - Agile App Dev,London,3/1/2016,3607,1942
+1 - Online Mortgages,Yes,SANTANDER UK PLC,Funded,"Street, Nicholas",1680075.00 GBP,"1,554,688.79 GBP","1,554,688.79 GBP",14148,0,13692,0,13692,0,305609,,Client Facing,Global - Agile App Dev,London,6/15/2015,994,1574
+1 - Project Tofino *,Yes,Orange,Funded,"Clutton, Robbie",396825.40 USD,"292,307.73 USD","270,135.40 USD",2000,0,1771.5,1473.25,1731.75,535.68,306160,,Client Facing,Global - Agile App Dev,London,2/8/2016,3462,127
+3 - Smart Cash,Yes,THE ROYAL BANK OF SCOTLAND PLC,Funded,"Clutton, Robbie",608127.31 USD,"147,761.91 USD","147,761.91 USD",3040,0,742,738.5,742,0,306133,,Client Facing,Global - Agile App Dev,London,3/10/2016,3666,1524
+5 - Project Portland (Onboarding),Yes,SANTANDER UK PLC,Funded,"Street, Nicholas",35150.00 GBP,0.00 GBP,0.00 GBP,296,0,266.75,0,266.75,0,306392,,Client Facing,Global - Agile App Dev,London,6/16/2016,4073,1574
+5 - Retail: Digital Messaging,Yes,HSBC BANK PLC,Funded,"Clutton, Robbie",611187.50 GBP,"549,896.93 GBP","519,784.43 GBP",4285,0,4009.25,3839.25,4009.25,0,305913,,Client Facing,Global - Agile App Dev,London,11/15/2015,3115,1337
+6 - Payments Hub,Yes,SANTANDER UK PLC,Funded,"Street, Nicholas",299725.00 GBP,0.00 GBP,0.00 GBP,2524,0,302,0,286.5,1674,306268,,Client Facing,Global - Agile App Dev,London,7/4/2016,4149,1574
+ , , , , , , , ,28389, ,22752,8017.5,22696.75,2246.88, , , , , , , , 
