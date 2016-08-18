@@ -15,7 +15,7 @@ class Project:
         self.id = id
         self.weeks = {}
         
-class week():
+class Week():
     
     def __init__(self, wcdate, hours={}):
         self.wcdate = wcdate
@@ -54,27 +54,44 @@ projects = read_projects()
 
 # Read the hours sheet and create weeks for each column per project
 def read_hours():
+    '''Read the hours per project sheet and set the hours attribute of each 
+        project to a list of week containing the hours'''
     file='Project hours - project hours by role.csv'
+    
+    # read the file
     with open(file) as hoursfile:
         hoursreader = csv.reader(hoursfile, delimiter=',')
         hoursreader.__next__()
         
-        datematch = re.compile('\d+')
-        weeksrow=[]
-
-        for wd in hoursreader.__next__():
-            if datematch.findall(wd):
-                print(wd)
-                m, d, y = datematch.findall(wd)
-                weeksrow.append(date(int(y),int(m),int(d)))
-        print(weeksrow)
         
+        # Extract the weeks covered  by the sheet
+        datematch = re.compile('\d+')
+        weeks=[]
+        
+        # Read the week dates from the head of the table
+        for wd in hoursreader.__next__():
+            # only store columns containing dates - first cell doesn't
+            if datematch.findall(wd):
+                m, d, y = datematch.findall(wd)
+                weeks.append(Week(wcdate=date(int(y),int(m),int(d))))
+        print(type(weeks))
+        
+        # Sheet lists projects and roles. Read the role hours into each project
         currentproject = ''
         for row in hoursreader:
+            
             if row[0] in projects.keys():
                 currentproject=projects[row[0]]
                 continue
             
+            # Determine the role
+            role = row[0].strip()
+#            print(len(row),  ' - ', len(weeks))
+            # Add the hours for that role to each week
+            for i in range(1, len(row)):
+                print(row[i], ' ====')
+                weeks[i].hours[role] = round(float(row[i]), 2)
 
-                
+                    
+   
 read_hours()
