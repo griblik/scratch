@@ -196,7 +196,7 @@ b = X.Accept
 
 X_train, X_test, y_train, y_test = train_test_split(a, b, test_size=0.3, random_state=7)
 
-model.fit(X_test, y_test)
+model.fit(X_train, y_train)
 score = model.score(X_test, y_test)
 
 
