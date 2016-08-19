@@ -21,8 +21,11 @@ class Week():
         self.wcdate = wcdate
         self.hours = hours
         
-    def set_hours(role, hours):
-        hours[role] = hours
+    def set_hours(self, role, hours):
+        self.hours[role] = hours
+        
+    def get_date(self):
+        return self.wcdate
 
     
 
@@ -49,11 +52,6 @@ def read_projects():
                 result[row['Project']] = Project(name=row['Project'], id=row['Internal id'])
     return result
     
-# read the staff roles list
-roles = read_list('Project hours - roles.csv', 'Job code')
-
-# Get a list of the current project names
-projects = read_projects()
 
 # Read the hours sheet and create weeks for each column per project
 def read_hours():
@@ -78,11 +76,10 @@ def read_hours():
             if datematch.findall(wd):
                 m, d, y = datematch.findall(wd)
                 weekdates.append(Week(wcdate=date(int(y),int(m),int(d))))
-        print(weekdates[102].wcdate)
         
         #Set up the week objects for each project
         for p in projects.values():
-            p.weeks = [Week(wcdate=weekdates[i]) for i in range(0,len(weekdates))]
+            p.weeks = [Week(wcdate=weekdates[i].wcdate) for i in range(0,len(weekdates))]
         
         # Clean up the data
         hoursreader = list(hoursreader)
@@ -103,7 +100,7 @@ def read_hours():
             '''
         
             if row[0] in projects.keys():                
-                currentproject=projects[row[0]] # switch projects
+                currentproject = projects[row[0]] # switch projects
                 continue
             
             # If it's not a project, and it's not a role, we don't want it (shouldn't happen)
@@ -113,14 +110,18 @@ def read_hours():
 
             # Add rolename:hours to each week. 
             for i in range(0, len(row)-1):
-                print('===',len(row[0]), '===')
+#                print('Setting ', currentproject.name, ' week ',currentproject.weeks[i].get_date(), ' role: ', row[0], ' hours: ',round(float(row[i+1]), 2))
                 currentproject.weeks[i].set_hours(role=row[0], hours=round(float(row[i+1]), 2))
 
-            
-            
 
-#        print(weeks[4].hours)
-   
+# read the staff roles list
+roles = read_list('Project hours - roles.csv', 'Job code')
+
+# Get a list of the current project names
+projects = read_projects()
+
+# Assign the hours submitted to each project
 read_hours()
+
 print([project.name for project in projects.values()], '\n')
-print(projects['1 - Online Mortgages'].weeks)
+print(projects['1 - Online Mortgages'].weeks[-2].hours)
