@@ -29,9 +29,13 @@ class Week():
 
     
 
-def read_list(file, column):
+def read_roles():
     ''' return a column from a csv as a list where the cell is not a single space '''
-    result = []
+
+    file = 'Project hours - roles.csv'
+    column = 'Job code'
+
+    result = []    
     with open(file) as rolesfile:
         rolesreader = csv.DictReader(rolesfile, delimiter=',')
         for row in rolesreader:
@@ -103,19 +107,20 @@ def read_hours():
                 currentproject = projects[row[0]] # switch projects
                 continue
             
-            # If it's not a project, and it's not a role, we don't want it (shouldn't happen)
+            # If it's not a project, and it's not a role, we don't want it
             elif row[0] not in roles:
                 continue
-
+            
+            print(currentproject.name)
 
             # Add rolename:hours to each week. 
             for i in range(0, len(row)-1):
-#                print('Setting ', currentproject.name, ' week ',currentproject.weeks[i].get_date(), ' role: ', row[0], ' hours: ',round(float(row[i+1]), 2))
+                print('Setting ', currentproject.name, ' week ',currentproject.weeks[i].get_date(), ' role: ', row[0], ' hours: ',round(float(row[i+1]), 2))
                 currentproject.weeks[i].set_hours(role=row[0], hours=round(float(row[i+1]), 2))
 
 
 # read the staff roles list
-roles = read_list('Project hours - roles.csv', 'Job code')
+roles = read_roles()
 
 # Get a list of the current project names
 projects = read_projects()
@@ -123,5 +128,6 @@ projects = read_projects()
 # Assign the hours submitted to each project
 read_hours()
 
-print([project.name for project in projects.values()], '\n')
-print(projects['1 - Online Mortgages'].weeks[-2].hours)
+#for proj in projects:
+#    print(proj)
+#    print(projects[proj].weeks[-4].hours)
