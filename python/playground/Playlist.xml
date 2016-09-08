@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Major Version</key><integer>1</integer>
+	<key>Minor Version</key><integer>1</integer>
+	<key>Date</key><date>2016-09-08T14:03:40Z</date>
+	<key>Application Version</key><string>12.4.3.1</string>
+	<key>Features</key><integer>5</integer>
+	<key>Show Content Ratings</key><true/>
+	<key>Music Folder</key><string>file:///Users/ntelford/Music/iTunes/iTunes%20Media/</string>
+	<key>Library Persistent ID</key><string>2DF66489F374AF06</string>
+	<key>Tracks</key>
+	<dict>
+		<key>151</key>
+		<dict>
+			<key>Track ID</key><integer>151</integer>
+			<key>Name</key><string>clare S3 interview</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>9245101</integer>
+			<key>Total Time</key><integer>2310739</integer>
+			<key>Year</key><integer>2015</integer>
+			<key>Date Modified</key><date>2015-09-22T10:52:57Z</date>
+			<key>Date Added</key><date>2015-09-22T10:52:53Z</date>
+			<key>Bit Rate</key><integer>32</integer>
+			<key>Sample Rate</key><integer>11025</integer>
+			<key>Release Date</key><date>2015-08-11T09:03:09Z</date>
+			<key>Normalization</key><integer>1348</integer>
+			<key>Persistent ID</key><string>5605E7DEF3B5A4DC</string>
+			<key>Track Type</key><string>File</string>
+			<key>File Type</key><integer>1297106739</integer>
+			<key>Location</key><string>file:///Users/ntelford/Music/iTunes/iTunes%20Media/Music/Unknown%20Artist/Unknown%20Album/clare%20S3%20interview.mp3</string>
+			<key>File Folder Count</key><integer>5</integer>
+			<key>Library Folder Count</key><integer>1</integer>
+		</dict>
+		<key>155</key>
+		<dict>
+			<key>Track ID</key><integer>155</integer>
+			<key>Name</key><string>Laurie Bently Interview</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>12337992</integer>
+			<key>Total Time</key><integer>3083964</integer>
+			<key>Date Modified</key><date>2015-09-22T10:54:08Z</date>
+			<key>Date Added</key><date>2015-09-22T10:54:01Z</date>
+			<key>Bit Rate</key><integer>32</integer>
+			<key>Sample Rate</key><integer>11025</integer>
+			<key>Normalization</key><integer>43280</integer>
+			<key>Persistent ID</key><string>7ABCC6FB4785FDA8</string>
+			<key>Track Type</key><string>File</string>
+			<key>File Type</key><integer>1297106739</integer>
+			<key>Location</key><string>file:///Users/ntelford/Music/iTunes/iTunes%20Media/Music/Unknown%20Artist/Unknown%20Album/Laurie%20Bently%20Interview.mp3</string>
+			<key>File Folder Count</key><integer>5</integer>
+			<key>Library Folder Count</key><integer>1</integer>
+		</dict>
+		<key>161</key>
+		<dict>
+			<key>Track ID</key><integer>161</integer>
+			<key>Name</key><string>20150804 150734</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6593042</integer>
+			<key>Total Time</key><integer>3295451</integer>
+			<key>Year</key><integer>2015</integer>
+			<key>Date Modified</key><date>2015-09-22T10:56:07Z</date>
+			<key>Date Added</key><date>2015-09-22T10:56:00Z</date>
+			<key>Bit Rate</key><integer>16</integer>
+			<key>Sample Rate</key><integer>11025</integer>
+			<key>Release Date</key><date>2015-08-04T14:07:34Z</date>
+			<key>Normalization</key><integer>865</integer>
+			<key>Persistent ID</key><string>7F048D535C767F49</string>
+			<key>Track Type</key><string>File</string>
+			<key>File Type</key><integer>1297106739</integer>
+			<key>Location</key><string>file:///Users/ntelford/Music/iTunes/iTunes%20Media/Music/Unknown%20Artist/Unknown%20Album/20150804%20150734.mp3</string>
+			<key>File Folder Count</key><integer>5</integer>
+			<key>Library Folder Count</key><integer>1</integer>
+		</dict>
+		<key>165</key>
+		<dict>
+			<key>Track ID</key><integer>165</integer>
+			<key>Name</key><string>20150805 141051</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>5815533</integer>
+			<key>Total Time</key><integer>2906697</integer>
+			<key>Year</key><integer>2015</integer>
+			<key>Date Modified</key><date>2015-09-22T10:56:13Z</date>
+			<key>Date Added</key><date>2015-09-24T14:27:49Z</date>
+			<key>Bit Rate</key><integer>16</integer>
+			<key>Sample Rate</key><integer>11025</integer>
+			<key>Normalization</key><integer>889</integer>
+			<key>Persistent ID</key><string>1D29977D831D6B54</string>
+			<key>Track Type</key><string>File</string>
+			<key>File Type</key><integer>1297106739</integer>
+			<key>Location</key><string>file:///Users/ntelford/Music/iTunes/iTunes%20Media/Music/Unknown%20Artist/Unknown%20Album/20150805%20141051%201.mp3</string>
+			<key>File Folder Count</key><integer>5</integer>
+			<key>Library Folder Count</key><integer>1</integer>
+		</dict>
+	</dict>
+	<key>Playlists</key>
+	<array>
+		<dict>
+			<key>Name</key><string>Playlist</string>
+			<key>Description</key><string></string>
+			<key>Playlist ID</key><integer>296</integer>
+			<key>Playlist Persistent ID</key><string>F6D889405B7F86F3</string>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key><integer>151</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>161</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>155</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>165</integer>
+				</dict>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
