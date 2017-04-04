@@ -236,6 +236,13 @@ def story_changers(pid, actor='creator'):
     df['counter'] = 1
     df.sort_values(by='created_date')
     df.index = df['created_date']
+
+    # Bea imports around 30 standard project admin chores at project creation
+    df = df.loc[df['creator'] != 'Bea Guarnieri']
+
+    # Only show top 5 actors, gets too cluttered otherwise
+    df = df.loc[df[actor].isin(df[actor].value_counts().keys()[:5])]
+
     grouped_stories = df.groupby(actor)
 
     munged_df = []
@@ -263,7 +270,6 @@ def story_changers(pid, actor='creator'):
              title="%(name)s stories %(act)s by date" % {'name': project_name, 'act': act})
 
     show(p)
-
 
 
 def show_cumulative_statuses(pid):

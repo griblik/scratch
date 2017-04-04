@@ -27,7 +27,7 @@ API_KEY = "1b75e51e0a719691c6f08e2e9f884fe9"  # NT
                   923920,875389,849813,803319,625235,555129,254145]
 '''
 
-project_ids = [1861211, 930980]
+project_ids = [1861211, 930980, 1892181]
 
 
 def export_activity(projects):
